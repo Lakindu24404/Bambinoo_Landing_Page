@@ -978,7 +978,6 @@ footer {
   border: 5px solid red;
   display: flex;
   overflow-x: auto;
-  gap: 1em;
 }
 
 .carousel::-webkit-scrollbar {
@@ -1002,6 +1001,7 @@ footer {
   justify-content: center;
   gap: 1em;
   animation: loop 5s infinite linear;
+  padding-right: 1em;
 }
 
 @keyframes loop {
