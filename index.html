@@ -1,0 +1,2320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bambinoo — Child Health & Development Recording System</title>
+    <link rel="shortcut icon" href="bambinoologo.png" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2196F3;
+            --secondary: #FF6F91;
+            --dark: #817E7E;
+            --light: ##F3F3F3;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+        
+        nav.scrolled {
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-logo img {
+            height: 50px;
+            width: auto;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-menu li {
+            position: relative;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-menu a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 30px var(--shadow);
+            border-radius: 12px;
+            padding: 1rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-menu li {
+            padding: 0.75rem 1.5rem;
+        }
+        
+        .dropdown-menu a {
+            display: block;
+            white-space: nowrap;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0c8988;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(14, 165, 164, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6f9170, #2195f362);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-indicator i {
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Go To Top Button */
+        .go-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+        
+        .go-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .go-top:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+        
+        /* Quick Features */
+        .quick-features {
+            padding: 4rem 2rem;
+            background: var(--light);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px var(--shadow);
+        }
+        
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Aim & Mission */
+        .aim-mission {
+            background: linear-gradient(135deg, var(--primary), #0c8988);
+            color: white;
+        }
+        
+        .aim-mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .aim-card, .mission-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .aim-card h3, .mission-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .aim-card p, .mission-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        /* Education Section */
+        .education-section {
+            background: var(--light);
+        }
+        
+        .education-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .education-menu {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            height: fit-content;
+        }
+        
+        .education-item {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: var(--light);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .education-item:hover, .education-item.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .education-content {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 4px 20px var(--shadow);
+        }
+        
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            color: #64748b;
+        }
+        
+        .content-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .content-card {
+            padding: 2rem;
+            background: var(--light);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+        
+        /* Video Library */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .video-thumbnail:hover {
+            transform: scale(1.05);
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .video-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(14, 165, 164, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .video-info {
+            padding: 1.5rem;
+            background: white;
+        }
+        
+        /* Features Detailed */
+        .features-detailed {
+            background: var(--light);
+        }
+        
+        .features-detailed-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .detailed-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .detailed-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px var(--shadow);
+        }
+        
+        .detailed-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .detailed-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .detailed-card ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .detailed-card ul li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .detailed-card ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        #growthChart {
+            margin-top: 1.5rem;
+            max-height: 250px;
+        }
+        
+        .chat-widget {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        
+        .chat-message {
+            padding: 0.75rem;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+        }
+        
+        .chat-message.user {
+            background: var(--primary);
+            color: white;
+            margin-left: 20%;
+        }
+        
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: all 0.3s;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 5px solid var(--primary);
+        }
+        
+        .team-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-card .role {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* FAQ Section */
+        .faq-container {
+            max-width: 900px;
+            margin: 3rem auto 0;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px var(--shadow);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: var(--light);
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+        
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+            padding: 0 2rem;
+        }
+        
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 1.5rem 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand img {
+            height: 60px;
+        }
+        
+        .footer-brand h3 {
+            font-size: 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h4 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-column a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .language-switcher button {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .language-switcher button:hover, .language-switcher button.active {
+            background: var(--primary);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #64748b;
+            transition: color 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .password-toggle {
+            position: relative;
+        }
+        
+        .password-toggle i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #64748b;
+        }
+        
+        .video-modal .modal-content {
+            max-width: 900px;
+            padding: 2rem;
+        }
+        
+        .video-modal iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 5rem 2rem;
+                transition: left 0.3s;
+                justify-content: flex-start;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+            
+            .nav-buttons {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .education-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .features-detailed-grid,
+            .content-cards,
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-modal iframe {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="bambinoologo.png" alt="Bambinoo Logo">
+            </a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li class="dropdown">
+                    <a href="#education">Education <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#education" data-section="before-birth">Before Birth</a></li>
+                        <li><a href="#education" data-section="0-3">0–3 Months</a></li>
+                        <li><a href="#education" data-section="3-12">3–12 Months</a></li>
+                        <li><a href="#education" data-section="1-2">1–2 Years</a></li>
+                        <li><a href="#education" data-section="2-5">2–5 Years</a></li>
+                    </ul>
+                </li>
+                <li><a href="#videos">Videos</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#aim-mission">Aim & Mission</a></li>
+                <li><a href="#faq">Q&A</a></li>
+                <li><a href="#team">About Team</a></li>
+            </ul>
+            
+            <div class="nav-buttons">
+                <button class="btn btn-outline" onclick="openModal('signinModal')">Sign In</button>
+                <button class="btn btn-primary" onclick="openModal('registerModal')">Register</button>
+            </div>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="hero_video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Bambinoo — Smart Child Growth & Health Monitoring</h1>
+            <p>Empowering parents and healthcare professionals with AI-driven insights for comprehensive child health and development tracking</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="openModal('registerModal')">Get Started</button>
+                <button class="btn btn-outline" style="background: #2196F3; color: white; border-color: white;" onclick="openModal('videoModal1')">Watch Intro</button>
+            </div>
+        </div>
+        <div class="scroll-indicator" onclick="smoothScroll('#quick-features')">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Go To Top Button -->
+    <div class="go-top" id="goTop" onclick="smoothScroll('#home')">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Quick Features -->
+    <section class="quick-features" id="quick-features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Nutrition Recommendations</h3>
+                    <p>Personalized meal plans</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <i class="fas fa-syringe"></i>
+                    <h3>Vaccination Alerts</h3>
+                    <p>Never miss immunizations</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI Chatbot</h3>
+                    <p>24/7 health assistance</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <i class="fas fa-file-medical"></i>
+                    <h3>Digital Medical Records</h3>
+                    <p>Secure cloud storage</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aim & Mission -->
+    <section class="aim-mission" id="aim-mission">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Our Aim & Mission</h2>
+            <div class="aim-mission-grid">
+                <div class="aim-card fade-in">
+                    <h3><i class="fas fa-bullseye"></i> Our Aim</h3>
+                    <p>Create a digitalised child health monitoring record system that helps parents monitor the growth and development of their children while making the lives of doctors and nurses/midwives easier by allowing them to analyse and record child data more efficiently.</p>
+                </div>
+                <div class="mission-card fade-in">
+                    <h3><i class="fas fa-heart"></i> Our Mission</h3>
+                    <p>Ensure proactive child health care with AI-driven monitoring, nutrition and exercise guidance, vaccination alerts, and digital medical records. We empower families and healthcare professionals with intelligent tools for optimal child development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education-section" id="education">
+        <div class="container">
+            <h2 class="section-title">Child Development Education</h2>
+            <p class="section-subtitle">Comprehensive guides for every stage of your child's journey</p>
+            
+            <div class="education-container">
+                <div class="education-menu fade-in">
+                    <div class="education-item active" data-target="before-birth">
+                        <i class="fas fa-baby"></i> Before Birth
+                    </div>
+                    <div class="education-item" data-target="0-3">
+                        <i class="fas fa-baby-carriage"></i> 0–3 Months
+                    </div>
+                    <div class="education-item" data-target="3-12">
+                        <i class="fas fa-child"></i> 3–12 Months
+                    </div>
+                    <div class="education-item" data-target="1-2">
+                        <i class="fas fa-running"></i> 1–2 Years
+                    </div>
+                    <div class="education-item" data-target="2-5">
+                        <i class="fas fa-school"></i> 2–5 Years
+                    </div>
+                </div>
+                
+                <div class="education-content fade-in">
+                    <div class="breadcrumb">
+                        <span>Education</span> <i class="fas fa-chevron-right"></i> <span id="currentSection">Before Birth</span>
+                    </div>
+                    
+                    <div id="educationContent">
+                        <div class="content-cards">
+                            <div class="content-card">
+                                <h3>Prenatal Care</h3>
+                                <p>Essential vitamins, nutrition, and health checkups during pregnancy</p>
+                            </div>
+                            <div class="content-card">
+                                <h3>Fetal Development</h3>
+                                <p>Understanding your baby's growth stages month by month</p>
+                            </div>
+                            <div class="content-card">
+                                <h3>Preparing for Birth</h3>
+                                <p>Hospital bags, birth plans, and what to expect</p>
+                            </div>
+                            <div class="content-card">
+                                <h3>Mental Health</h3>
+                                <p>Managing stress and emotions during pregnancy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Library -->
+    <section id="videos">
+        <div class="container">
+            <h2 class="section-title">Video Library</h2>
+            <p class="section-subtitle">Expert guidance and tutorials for child care</p>
+            
+            <div class="video-grid">
+                <div class="video-thumbnail fade-in" onclick="openVideoModal('xjYk0w_MMmw')">
+                    <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Video 1">
+                    <div class="video-play"><i class="fas fa-play"></i></div>
+                    <div class="video-info">
+                        <h3>Newborn Care Basics</h3>
+                        <p>Essential tips for first-time parents</p>
+                    </div>
+                </div>
+                <div class="video-thumbnail fade-in" onclick="openVideoModal('oI9WE1spJFs')">
+                    <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Video 2">
+                    <div class="video-play"><i class="fas fa-play"></i></div>
+                    <div class="video-info">
+                        <h3>Nutrition Guidelines</h3>
+                        <p>Healthy eating for growing children</p>
+                    </div>
+                </div>
+                <div class="video-thumbnail fade-in" onclick="openVideoModal('pZSjm0drIGM')">
+                    <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Video 3">
+                    <div class="video-play"><i class="fas fa-play"></i></div>
+                    <div class="video-info">
+                        <h3>Vaccination Schedule</h3>
+                        <p>Understanding immunization timelines</p>
+                    </div>
+                </div>
+                <div class="video-thumbnail fade-in" onclick="openVideoModal('aP33Xn6T3Vc&t=122s')">
+                    <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg" alt="Video 4">
+                    <div class="video-play"><i class="fas fa-play"></i></div>
+                    <div class="video-info">
+                        <h3>Developmental Milestones</h3>
+                        <p>What to expect at each age</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Detailed -->
+    <section class="features-detailed" id="features">
+        <div class="container">
+            <h2 class="section-title">Comprehensive Features</h2>
+            <p class="section-subtitle">Powerful tools designed for modern child healthcare</p>
+            
+            <div class="features-detailed-grid">
+                <div class="detailed-card fade-in">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>AI Growth Monitoring</h3>
+                    <p>Advanced analytics for tracking physical and cognitive development</p>
+                    <ul>
+                        <li>Real-time weight & height tracking</li>
+                        <li>Milestone achievement alerts</li>
+                        <li>Growth percentile comparisons</li>
+                        <li>Predictive health insights</li>
+                    </ul>
+                    <canvas id="growthChart"></canvas>
+                </div>
+                
+                <div class="detailed-card fade-in">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Nutrition & Food Prediction</h3>
+                    <p>AI-powered meal planning based on age and health needs</p>
+                    <ul>
+                        <li>Personalized meal recommendations</li>
+                        <li>Allergy and intolerance tracking</li>
+                        <li>Nutritional value analysis</li>
+                        <li>Recipe suggestions</li>
+                    </ul>
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="openModal('learnMoreModal')">Learn More</button>
+                </div>
+                
+                <div class="detailed-card fade-in">
+                    <i class="fas fa-running"></i>
+                    <h3>Exercise Activity Predictor</h3>
+                    <p>Age-appropriate physical activities for optimal development</p>
+                    <ul>
+                        <li>Customized exercise plans</li>
+                        <li>Activity duration tracking</li>
+                        <li>Motor skill development</li>
+                        <li>Fun interactive challenges</li>
+                    </ul>
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="openModal('learnMoreModal')">Learn More</button>
+                </div>
+                
+                <div class="detailed-card fade-in">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI Chatbot Assistant</h3>
+                    <p>24/7 intelligent support for parenting questions</p>
+                    <div class="chat-widget">
+                        <div class="chat-message">
+                            <strong>Parent:</strong> What vaccines does my 6-month-old need?
+                        </div>
+                        <div class="chat-message">
+                            <strong>Bambinoo AI:</strong> At 6 months, your baby should receive vaccines for DTaP, Hib, IPV, PCV13, and Rotavirus. I can schedule a reminder for you!
+                        </div>
+                        <div class="chat-message user">
+                            <strong>You:</strong> Yes, please set a reminder
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detailed-card fade-in">
+                    <i class="fas fa-syringe"></i>
+                    <h3>Vaccination Alerts</h3>
+                    <p>Automated reminders for immunization schedules</p>
+                    <ul>
+                        <li>Multi-child tracking</li>
+                        <li>SMS and email notifications</li>
+                        <li>Vaccine history records</li>
+                        <li>Nearby clinic locator</li>
+                    </ul>
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="openModal('learnMoreModal')">Learn More</button>
+                </div>
+                
+                <div class="detailed-card fade-in">
+                    <i class="fas fa-user-md"></i>
+                    <h3>Staff Dashboard Preview</h3>
+                    <p>Healthcare professional tools for efficient patient management</p>
+                    <ul>
+                        <li>Patient record access</li>
+                        <li>Appointment scheduling</li>
+                        <li>Analytics and reporting</li>
+                        <li>Prescription management</li>
+                    </ul>
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="openModal('learnMoreModal')">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Team -->
+    <section id="team">
+        <div class="container">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p class="section-subtitle">Dedicated professionals committed to child health innovation</p>
+            
+            <div class="team-grid">
+                <div class="team-card fade-in">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" alt="Team Member">
+                    <h3>Dr. Sarah Johnson</h3>
+                    <p class="role">Lead Pediatrician</p>
+                    <p>15+ years experience in child health and development with expertise in neonatal care</p>
+                </div>
+                <div class="team-card fade-in">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Michael" alt="Team Member">
+                    <h3>Michael Chen</h3>
+                    <p class="role">AI Engineer</p>
+                    <p>Specialist in machine learning and predictive health analytics for pediatric care</p>
+                </div>
+                <div class="team-card fade-in">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Emily" alt="Team Member">
+                    <h3>Emily Rodriguez</h3>
+                    <p class="role">Nutrition Specialist</p>
+                    <p>Certified pediatric nutritionist helping families build healthy eating habits</p>
+                </div>
+                <div class="team-card fade-in">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=David" alt="Team Member">
+                    <h3>David Patel</h3>
+                    <p class="role">Product Manager</p>
+                    <p>Bridging healthcare and technology to create user-friendly solutions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="features-detailed" id="faq">
+        <div class="container">
+            <h2 class="section-title">Q&A — Common Questions</h2>
+            <p class="section-subtitle">Everything you need to know about Bambinoo</p>
+            
+            <div class="faq-container">
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>How does Bambinoo track child growth?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Bambinoo uses AI algorithms to analyze weight, height, and developmental milestones entered by parents or healthcare providers. The system compares data against WHO growth standards and provides percentile rankings and predictive insights.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Is AI nutrition advice medically verified?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, all nutrition recommendations are developed by certified pediatric nutritionists and reviewed by medical professionals. The AI provides suggestions based on established dietary guidelines for children.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Can I chat with doctors through the platform?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The AI chatbot provides immediate answers to common questions. For specific medical concerns, you can request consultations with healthcare providers through the platform's telemedicine feature (available in premium plans).</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Are vaccination reminders automatic?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, once you enter your child's birth date, Bambinoo automatically schedules vaccination reminders based on recommended immunization schedules. You'll receive notifications via SMS, email, and in-app alerts.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Can staff update CHDR records on mobile?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! Healthcare providers can access and update child health records through our mobile app with proper authentication, making clinic visits more efficient and reducing paperwork.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>How secure is the data?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We use bank-level encryption (AES-256) and comply with international healthcare data protection standards. All data is stored securely in the cloud with regular backups and strict access controls.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Does it work offline?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Basic features like viewing stored records and entering new data work offline. The information syncs automatically when you reconnect to the internet. AI features require an internet connection.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Who prepares educational content?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our educational materials are created by pediatricians, child psychologists, and certified educators, then reviewed by our medical advisory board to ensure accuracy and relevance.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Is the chatbot available 24/7?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! The AI chatbot is available around the clock to answer common parenting and health questions. For urgent medical issues, the system will recommend contacting emergency services or your healthcare provider.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item fade-in">
+                    <div class="faq-question">
+                        <span>Can I add multiple children to one account?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can manage multiple children's profiles under a single parent account. Each child has their own separate health records, vaccination schedules, and growth tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <img src="bambinoologo.png" alt="Bambinoo Logo">
+                <div>
+                    <h3>Bambinoo CHDR</h3>
+                    <p>Smart Child Health Monitoring</p>
+                </div>
+            </div>
+            
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Features</h4>
+                    <ul>
+                        <li><a href="#features">AI Growth Monitoring</a></li>
+                        <li><a href="#features">Nutrition Guidance</a></li>
+                        <li><a href="#features">Vaccination Alerts</a></li>
+                        <li><a href="#features">AI Chatbot</a></li>
+                        <li><a href="#features">Staff Dashboard</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Education</h4>
+                    <ul>
+                        <li><a href="#education">Before Birth</a></li>
+                        <li><a href="#education">0-3 Months</a></li>
+                        <li><a href="#education">3-12 Months</a></li>
+                        <li><a href="#education">1-2 Years</a></li>
+                        <li><a href="#education">2-5 Years</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#team">About Team</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Data Usage</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> info@bambinoo.com</p>
+                    <p><i class="fas fa-phone"></i> +94 11 234 5678</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Colombo, Sri Lanka</p>
+                    
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                    
+                    <div class="language-switcher">
+                        <button class="active" data-lang="en">English</button>
+                        <button data-lang="si">සිංහල</button>
+                        <button data-lang="ta">தமிழ்</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bambinoo CHDR System — All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sign In Modal -->
+    <div class="modal" id="signinModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('signinModal')">&times;</span>
+            <h2>Sign In to Bambinoo</h2>
+            <form>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-toggle">
+                        <input type="password" id="signinPassword" placeholder="Enter your password" required>
+                        <i class="fas fa-eye" onclick="togglePassword('signinPassword')"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select required>
+                        <option value="">Select your role</option>
+                        <option value="parent">Parent</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="nurse">Nurse</option>
+                        <option value="midwife">Midwife</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Sign In</button>
+                <p style="text-align: center; margin-top: 1rem;">Don't have an account? <a href="#" onclick="closeModal('signinModal'); openModal('registerModal');" style="color: var(--primary);">Register</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Register for Bambinoo</h2>
+            <form>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="Enter your phone number" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-toggle">
+                        <input type="password" id="registerPassword" placeholder="Create a password" required>
+                        <i class="fas fa-eye" onclick="togglePassword('registerPassword')"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <div class="password-toggle">
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                        <i class="fas fa-eye" onclick="togglePassword('confirmPassword')"></i>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select required>
+                        <option value="">Select your role</option>
+                        <option value="parent">Parent</option>
+                        <option value="doctor">Doctor</option>
+                        <option value="nurse">Nurse</option>
+                        <option value="midwife">Midwife</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-outline" style="width: 100%;" onclick="alert('OTP sent to your email!')">Send OTP</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Register</button>
+                <p style="text-align: center; margin-top: 1rem;">Already have an account? <a href="#" onclick="closeModal('registerModal'); openModal('signinModal');" style="color: var(--primary);">Sign In</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div class="modal video-modal" id="videoModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeVideoModal()">&times;</span>
+            <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Learn More Modal -->
+    <div class="modal" id="learnMoreModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('learnMoreModal')">&times;</span>
+            <h2>Feature Details</h2>
+            <p>This feature provides comprehensive support for child health and development. Our AI-powered system analyzes data to give you personalized recommendations and insights.</p>
+            <ul style="margin: 1.5rem 0; padding-left: 1.5rem;">
+                <li>Real-time monitoring and alerts</li>
+                <li>Personalized recommendations</li>
+                <li>Historical data analysis</li>
+                <li>Integration with healthcare providers</li>
+                <li>Mobile and web access</li>
+            </ul>
+            <button class="btn btn-primary" onclick="closeModal('learnMoreModal'); openModal('registerModal')">Get Started</button>
+        </div>
+    </div>
+
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                navHome: "Home",
+                navEducation: "Education",
+                navVideos: "Videos",
+                navFeatures: "Features",
+                navAimMission: "Aim & Mission",
+                navQA: "Q&A",
+                navTeam: "About Team",
+                btnSignIn: "Sign In",
+                btnRegister: "Register",
+                heroTitle: "Bambinoo — Smart Child Growth & Health Monitoring",
+                heroSubtitle: "Empowering parents and healthcare professionals with AI-driven insights for comprehensive child health and development tracking",
+                btnGetStarted: "Get Started",
+                btnWatchIntro: "Watch Intro",
+                quickFeature1Title: "AI Growth Monitoring",
+                quickFeature1Desc: "Track development milestones",
+                quickFeature2Title: "Nutrition Recommendations",
+                quickFeature2Desc: "Personalized meal plans",
+                quickFeature3Title: "Vaccination Alerts",
+                quickFeature3Desc: "Never miss immunizations",
+                quickFeature4Title: "AI Chatbot",
+                quickFeature4Desc: "24/7 health assistance",
+                quickFeature5Title: "Digital Medical Records",
+                quickFeature5Desc: "Secure cloud storage",
+                aimMissionTitle: "Our Aim & Mission",
+                aimTitle: "Our Aim",
+                aimText: "Create a digitalised child health monitoring record system that helps parents monitor the growth and development of their children while making the lives of doctors and nurses/midwives easier by allowing them to analyse and record child data more efficiently.",
+                missionTitle: "Our Mission",
+                missionText: "Ensure proactive child health care with AI-driven monitoring, nutrition and exercise guidance, vaccination alerts, and digital medical records. We empower families and healthcare professionals with intelligent tools for optimal child development.",
+                educationTitle: "Child Development Education",
+                educationSubtitle: "Comprehensive guides for every stage of your child's journey",
+                videoTitle: "Video Library",
+                videoSubtitle: "Expert guidance and tutorials for child care",
+                featuresTitle: "Comprehensive Features",
+                featuresSubtitle: "Powerful tools designed for modern child healthcare",
+                teamTitle: "Meet Our Team",
+                teamSubtitle: "Dedicated professionals committed to child health innovation",
+                faqTitle: "Q&A — Common Questions",
+                faqSubtitle: "Everything you need to know about Bambinoo",
+                footerText: "Smart Child Health Monitoring"
+            },
+            si: {
+                navHome: "මුල් පිටුව",
+                navEducation: "අධ්‍යාපනය",
+                navVideos: "වීඩියෝ",
+                navFeatures: "විශේෂාංග",
+                navAimMission: "අරමුණ සහ මෙහෙවර",
+                navQA: "ප්‍රශ්න සහ පිළිතුරු",
+                navTeam: "අපගේ කණ්ඩායම",
+                btnSignIn: "පුරනය වන්න",
+                btnRegister: "ලියාපදිංචි වන්න",
+                heroTitle: "බම්බිනූ — බුද්ධිමත් ළමා වර්ධන හා සෞඛ්‍ය නිරීක්ෂණය",
+                heroSubtitle: "සවිස්තරාත්මක ළමා සෞඛ්‍ය සහ වර්ධන ලුහුබැඳීම සඳහා AI මගින් ධාවනය වන තීක්ෂ්ණ බුද්ධියෙන් දෙමාපියන් සහ සෞඛ්‍ය සේවා වෘත්තිකයින් සවිබල ගැන්වීම",
+                btnGetStarted: "ආරම්භ කරන්න",
+                btnWatchIntro: "හැඳින්වීම බලන්න",
+                quickFeature1Title: "AI වර්ධන නිරීක්ෂණය",
+                quickFeature1Desc: "සංවර්ධන සන්ධිස්ථාන නිරීක්ෂණය",
+                quickFeature2Title: "පෝෂණ නිර්දේශ",
+                quickFeature2Desc: "පුද්ගලීකරණය කළ ආහාර සැලසුම්",
+                quickFeature3Title: "එන්නත් ඇඟවීම්",
+                quickFeature3Desc: "ප්‍රතිශක්තිකරණ මග හරින්න එපා",
+                quickFeature4Title: "AI චැට්බොට්",
+                quickFeature4Desc: "24/7 සෞඛ්‍ය සහාය",
+                quickFeature5Title: "ඩිජිටල් වෛද්‍ය වාර්තා",
+                quickFeature5Desc: "ආරක්ෂිත වලාකුළු ගබඩාව",
+                aimMissionTitle: "අපගේ අරමුණ සහ මෙහෙවර",
+                aimTitle: "අපගේ අරමුණ",
+                aimText: "දෙමාපියන්ට තම දරුවන්ගේ වර්ධනය සහ සංවර්ධනය නිරීක්ෂණය කිරීමට උපකාර කරන ඩිජිටල්කරණය වූ ළමා සෞඛ්‍ය නිරීක්ෂණ වාර්තා පද්ධතියක් නිර්මාණය කිරීම, එමගින් වෛද්‍යවරුන්ගේ සහ හෙද/මාතෘ සාරථිවරුන්ගේ ජීවිත පහසු කරමින් ළමා දත්ත වඩාත් කාර්යක්ෂමව විශ්ලේෂණය කර වාර්තා කිරීමට ඔවුන්ට ඉඩ සලසයි.",
+                missionTitle: "අපගේ මෙහෙවර",
+                missionText: "AI මගින් ධාවනය වන නිරීක්ෂණය, පෝෂණ සහ ව්‍යායාම මාර්ගෝපදේශ, එන්නත් ඇඟවීම් සහ ඩිජිටල් වෛද්‍ය වාර්තා සමඟ ක්‍රියාශීලී ළමා සෞඛ්‍ය සේවාව සහතික කරන්න. ප්‍රශස්ත ළමා සංවර්ධනය සඳහා බුද්ධිමත් මෙවලම් සමඟ අපි පවුල් සහ සෞඛ්‍ය සේවා වෘත්තිකයින් සවිබල ගන්වමු.",
+                educationTitle: "ළමා සංවර්ධන අධ්‍යාපනය",
+                educationSubtitle: "ඔබේ දරුවාගේ ගමනේ සෑම අදියරක් සඳහාම විස්තීර්ණ මාර්ගෝපදේශ",
+                videoTitle: "වීඩියෝ පුස්තකාලය",
+                videoSubtitle: "ළමා සත්කාර සඳහා විශේෂඥ මාර්ගෝපදේශ සහ නිබන්ධන",
+                featuresTitle: "සවිස්තරාත්මක විශේෂාංග",
+                featuresSubtitle: "නවීන ළමා සෞඛ්‍ය සේවා සඳහා නිර්මාණය කළ ප්‍රබල මෙවලම්",
+                teamTitle: "අපගේ කණ්ඩායම හමුවන්න",
+                teamSubtitle: "ළමා සෞඛ්‍ය නවෝත්පාදනය සඳහා කැපවූ වෘත්තිකයින්",
+                faqTitle: "ප්‍රශ්න සහ පිළිතුරු — පොදු ප්‍රශ්න",
+                faqSubtitle: "බම්බිනූ ගැන ඔබ දැන ගත යුතු සියල්ල",
+                footerText: "බුද්ධිමත් ළමා සෞඛ්‍ය නිරීක්ෂණය"
+            },
+            ta: {
+                navHome: "முகப்பு",
+                navEducation: "கல்வி",
+                navVideos: "வீடியோக்கள்",
+                navFeatures: "அம்சங்கள்",
+                navAimMission: "நோக்கம் & பணி",
+                navQA: "கே&பி",
+                navTeam: "எங்கள் குழு",
+                btnSignIn: "உள்நுழைக",
+                btnRegister: "பதிவு செய்க",
+                heroTitle: "பம்பினூ — ஸ்மார்ட் குழந்தை வளர்ச்சி & சுகாதார கண்காணிப்பு",
+                heroSubtitle: "விரிவான குழந்தை சுகாதாரம் மற்றும் வளர்ச்சி கண்காணிப்புக்கான AI-இயக்கப்படும் நுண்ணறிவுகளுடன் பெற்றோர்கள் மற்றும் சுகாதார வல்லுநர்களை மேம்படுத்துதல்",
+                btnGetStarted: "தொடங்குங்கள்",
+                btnWatchIntro: "அறிமுகம் பார்க்க",
+                quickFeature1Title: "AI வளர்ச்சி கண்காணிப்பு",
+                quickFeature1Desc: "வளர்ச்சி மைல்கற்களை கண்காணிக்கவும்",
+                quickFeature2Title: "ஊட்டச்சத்து பரிந்துரைகள்",
+                quickFeature2Desc: "தனிப்பயனாக்கப்பட்ட உணவு திட்டங்கள்",
+                quickFeature3Title: "தடுப்பூசி எச்சரிக்கைகள்",
+                quickFeature3Desc: "நோய்த்தடுப்பு தவறவிடாதீர்கள்",
+                quickFeature4Title: "AI சாட்பாட்",
+                quickFeature4Desc: "24/7 சுகாதார உதவி",
+                quickFeature5Title: "டிஜிட்டல் மருத்துவ பதிவுகள்",
+                quickFeature5Desc: "பாதுகாப்பான கிளவுட் சேமிப்பு",
+                aimMissionTitle: "எங்கள் நோக்கம் & பணி",
+                aimTitle: "எங்கள் நோக்கம்",
+                aimText: "பெற்றோர்கள் தங்கள் குழந்தைகளின் வளர்ச்சி மற்றும் மேம்பாட்டை கண்காணிக்க உதவும் டிஜிட்டல் மயமாக்கப்பட்ட குழந்தை சுகாதார கண்காணிப்பு பதிவு அமைப்பை உருவாக்குதல், அதே நேரத்தில் மருத்துவர்கள் மற்றும் செவிலியர்கள்/மருத்துவச்சிகளின் வாழ்க்கையை எளிதாக்குவதன் மூலம் அவர்கள் குழந்தை தரவை மிகவும் திறமையாக பகுப்பாய்வு செய்ய மற்றும் பதிவு செய்ய அனுமதிக்கிறது.",
+                missionTitle: "எங்கள் பணி",
+                missionText: "AI-இயக்கப்படும் கண்காணிப்பு, ஊட்டச்சத்து மற்றும் உடற்பயிற்சி வழிகாட்டுதல், தடுப்பூசி எச்சரிக்கைகள் மற்றும் டிஜிட்டல் மருத்துவ பதிவுகளுடன் செயலூக்கமான குழந்தை சுகாதார பராமரிப்பை உறுதி செய்யவும். உகந்த குழந்தை மேம்பாட்டிற்கான அறிவார்ந்த கருவிகளுடன் குடும்பங்கள் மற்றும் சுகாதார நிபுணர்களை நாங்கள் மேம்படுத்துகிறோம்.",
+                educationTitle: "குழந்தை வளர்ச்சி கல்வி",
+                educationSubtitle: "உங்கள் குழந்தையின் பயணத்தின் ஒவ்வொரு கட்டத்திற்கும் விரிவான வழிகாட்டிகள்",
+                videoTitle: "வீடியோ நூலகம்",
+                videoSubtitle: "குழந்தை பராமரிப்புக்கான நிபுணர் வழிகாட்டுதல் மற்றும் டுடோரியல்கள்",
+                featuresTitle: "விரிவான அம்சங்கள்",
+                featuresSubtitle: "நவீன குழந்தை சுகாதாரத்திற்காக வடிவமைக்கப்பட்ட சக்திவாய்ந்த கருவிகள்",
+                teamTitle: "எங்கள் குழுவை சந்திக்கவும்",
+                teamSubtitle: "குழந்தை சுகாதார கண்டுபிடிப்புக்கு அர்ப்பணிக்கப்பட்ட வல்லுநர்கள்",
+                faqTitle: "கே&பி — பொதுவான கேள்விகள்",
+                faqSubtitle: "பம்பினூ பற்றி நீங்கள் தெரிந்து கொள்ள வேண்டிய அனைத்தும்",
+                footerText: "ஸ்மார்ட் குழந்தை சுகாதார கண்காணிப்பு"
+            }
+        };
+        
+        // Current language state
+        let currentLang = 'en';
+        
+        // Function to update page content based on language
+        function updateLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            
+            // Update navigation
+            document.querySelector('.nav-menu a[href="#home"]').textContent = t.navHome;
+            document.querySelector('.nav-menu .dropdown > a').innerHTML = t.navEducation + ' <i class="fas fa-chevron-down"></i>';
+            document.querySelector('.nav-menu a[href="#videos"]').textContent = t.navVideos;
+            document.querySelector('.nav-menu a[href="#features"]').textContent = t.navFeatures;
+            document.querySelector('.nav-menu a[href="#aim-mission"]').textContent = t.navAimMission;
+            document.querySelector('.nav-menu a[href="#faq"]').textContent = t.navQA;
+            document.querySelector('.nav-menu a[href="#team"]').textContent = t.navTeam;
+            
+            // Update buttons
+            document.querySelectorAll('.nav-buttons .btn-outline').forEach(btn => btn.textContent = t.btnSignIn);
+            document.querySelectorAll('.nav-buttons .btn-primary').forEach(btn => btn.textContent = t.btnRegister);
+            
+            // Update hero
+            document.querySelector('.hero h1').textContent = t.heroTitle;
+            document.querySelector('.hero p').textContent = t.heroSubtitle;
+            document.querySelectorAll('.hero-buttons .btn-primary')[0].textContent = t.btnGetStarted;
+            document.querySelectorAll('.hero-buttons .btn-outline')[0].textContent = t.btnWatchIntro;
+            
+            // Update quick features
+            const quickFeatures = document.querySelectorAll('.quick-features .feature-card');
+            if (quickFeatures[0]) {
+                quickFeatures[0].querySelector('h3').textContent = t.quickFeature1Title;
+                quickFeatures[0].querySelector('p').textContent = t.quickFeature1Desc;
+            }
+            if (quickFeatures[1]) {
+                quickFeatures[1].querySelector('h3').textContent = t.quickFeature2Title;
+                quickFeatures[1].querySelector('p').textContent = t.quickFeature2Desc;
+            }
+            if (quickFeatures[2]) {
+                quickFeatures[2].querySelector('h3').textContent = t.quickFeature3Title;
+                quickFeatures[2].querySelector('p').textContent = t.quickFeature3Desc;
+            }
+            if (quickFeatures[3]) {
+                quickFeatures[3].querySelector('h3').textContent = t.quickFeature4Title;
+                quickFeatures[3].querySelector('p').textContent = t.quickFeature4Desc;
+            }
+            if (quickFeatures[4]) {
+                quickFeatures[4].querySelector('h3').textContent = t.quickFeature5Title;
+                quickFeatures[4].querySelector('p').textContent = t.quickFeature5Desc;
+            }
+            
+            // Update Aim & Mission
+            document.querySelector('.aim-mission .section-title').textContent = t.aimMissionTitle;
+            document.querySelector('.aim-card h3').innerHTML = '<i class="fas fa-bullseye"></i> ' + t.aimTitle;
+            document.querySelector('.aim-card p').textContent = t.aimText;
+            document.querySelector('.mission-card h3').innerHTML = '<i class="fas fa-heart"></i> ' + t.missionTitle;
+            document.querySelector('.mission-card p').textContent = t.missionText;
+            
+            // Update Education section
+            document.querySelector('.education-section .section-title').textContent = t.educationTitle;
+            document.querySelector('.education-section .section-subtitle').textContent = t.educationSubtitle;
+            
+            // Update Video section
+            document.querySelector('#videos .section-title').textContent = t.videoTitle;
+            document.querySelector('#videos .section-subtitle').textContent = t.videoSubtitle;
+            
+            // Update Features section
+            document.querySelector('.features-detailed .section-title').textContent = t.featuresTitle;
+            document.querySelector('.features-detailed .section-subtitle').textContent = t.featuresSubtitle;
+            
+            // Update Team section
+            document.querySelector('#team .section-title').textContent = t.teamTitle;
+            document.querySelector('#team .section-subtitle').textContent = t.teamSubtitle;
+            
+            // Update FAQ section
+            document.querySelector('#faq .section-title').textContent = t.faqTitle;
+            document.querySelector('#faq .section-subtitle').textContent = t.faqSubtitle;
+            
+            // Update Footer
+            document.querySelector('.footer-brand p').textContent = t.footerText;
+            
+            // Update language buttons
+            document.querySelectorAll('.language-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        // Navigation scroll effect
+        const navbar = document.getElementById('navbar');
+        const goTop = document.getElementById('goTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+                goTop.classList.add('visible');
+            } else {
+                navbar.classList.remove('scrolled');
+                goTop.classList.remove('visible');
+            }
+            
+            // Scroll animations
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        });
+        
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Smooth scroll
+        function smoothScroll(target) {
+            const element = document.querySelector(target);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                navMenu.classList.remove('active');
+            }
+        }
+        
+        // Education section switching
+        const educationItems = document.querySelectorAll('.education-item');
+        const educationData = {
+            'before-birth': {
+                title: 'Before Birth',
+                cards: [
+                    { title: 'Prenatal Care', desc: 'Essential vitamins, nutrition, and health checkups during pregnancy' },
+                    { title: 'Fetal Development', desc: 'Understanding your baby\'s growth stages month by month' },
+                    { title: 'Preparing for Birth', desc: 'Hospital bags, birth plans, and what to expect' },
+                    { title: 'Mental Health', desc: 'Managing stress and emotions during pregnancy' }
+                ]
+            },
+            '0-3': {
+                title: '0–3 Months',
+                cards: [
+                    { title: 'Newborn Care', desc: 'Feeding, sleeping, and basic newborn needs' },
+                    { title: 'First Vaccines', desc: 'Understanding initial immunization requirements' },
+                    { title: 'Sleep Patterns', desc: 'Establishing healthy sleep routines' },
+                    { title: 'Bonding', desc: 'Building emotional connections with your baby' }
+                ]
+            },
+            '3-12': {
+                title: '3–12 Months',
+                cards: [
+                    { title: 'Solid Foods', desc: 'Introducing first foods and managing allergies' },
+                    { title: 'Motor Skills', desc: 'Crawling, sitting, and early movement milestones' },
+                    { title: 'Language Development', desc: 'First words and communication skills' },
+                    { title: 'Safety Tips', desc: 'Babyproofing your home' }
+                ]
+            },
+            '1-2': {
+                title: '1–2 Years',
+                cards: [
+                    { title: 'Walking & Running', desc: 'Supporting physical development and coordination' },
+                    { title: 'Balanced Diet', desc: 'Nutrition for active toddlers' },
+                    { title: 'Social Skills', desc: 'Interaction with other children' },
+                    { title: 'Potty Training', desc: 'When and how to start toilet training' }
+                ]
+            },
+            '2-5': {
+                title: '2–5 Years',
+                cards: [
+                    { title: 'Preschool Readiness', desc: 'Preparing for educational environments' },
+                    { title: 'Emotional Intelligence', desc: 'Understanding and managing emotions' },
+                    { title: 'Physical Activities', desc: 'Sports and exercise for young children' },
+                    { title: 'Healthy Habits', desc: 'Establishing lifelong wellness routines' }
+                ]
+            }
+        };
+        
+        educationItems.forEach(item => {
+            item.addEventListener('click', () => {
+                educationItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                
+                const target = item.dataset.target;
+                const data = educationData[target];
+                
+                document.getElementById('currentSection').textContent = data.title;
+                
+                const contentCards = document.querySelector('.content-cards');
+                contentCards.innerHTML = data.cards.map(card => `
+                    <div class="content-card">
+                        <h3>${card.title}</h3>
+                        <p>${card.desc}</p>
+                    </div>
+                `).join('');
+            });
+        });
+        
+        // FAQ Accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.contains('active');
+                
+                // Close all
+                document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+                document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('active'));
+                
+                // Open clicked if it wasn't active
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.classList.add('active');
+                }
+            });
+        });
+        
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Video modal
+        function openVideoModal(videoId) {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = `https://www.youtube.com/watch?v=${videoId}`;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const iframe = document.getElementById('videoFrame');
+            iframe.src = '';
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Password toggle
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+        
+        // Language switcher
+        const langButtons = document.querySelectorAll('.language-switcher button');
+        langButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                langButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const lang = button.dataset.lang;
+                // Save to memory (not localStorage as per requirements)
+                window.currentLanguage = lang;
+                console.log('Language switched to:', lang);
+            });
+        });
+        
+        // Close modals on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                // Stop video if it's the video modal
+                if (e.target.id === 'videoModal') {
+                    document.getElementById('videoFrame').src = '';
+                }
+            }
+        });
+        
+        // Growth Chart with Chart.js
+        window.addEventListener('load', () => {
+            const ctx = document.getElementById('growthChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['0m', '3m', '6m', '9m', '12m', '15m', '18m', '24m'],
+                        datasets: [{
+                            label: 'Weight (kg)',
+                            data: [3.5, 6.0, 7.8, 9.0, 10.2, 11.0, 11.8, 12.5],
+                            borderColor: '#0ea5a4',
+                            backgroundColor: 'rgba(14, 165, 164, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }, {
+                            label: 'Height (cm)',
+                            data: [50, 60, 67, 72, 76, 79, 82, 87],
+                            borderColor: '#fb7185',
+                            backgroundColor: 'rgba(251, 113, 133, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'bottom'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Trigger initial scroll animation check
+        window.dispatchEvent(new Event('scroll'));
+        
+        // Form validation example
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Check if it's register form
+                if (form.closest('#registerModal')) {
+                    const password = document.getElementById('registerPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    
+                    if (password !== confirmPassword) {
+                        alert('Passwords do not match!');
+                        return;
+                    }
+                    
+                    if (password.length < 8) {
+                        alert('Password must be at least 8 characters long!');
+                        return;
+                    }
+                }
+                
+                // Simulate form submission
+                alert('Form submitted successfully! Welcome to Bambinoo.');
+                
+                // Close modal
+                const modal = form.closest('.modal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+                
+                // Reset form
+                form.reset();
+            });
+        });
+        
+        // Dropdown menu for mobile
+        document.querySelectorAll('.dropdown > a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    const dropdown = link.parentElement;
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    
+                    // Toggle visibility
+                    if (menu.style.display === 'block') {
+                        menu.style.display = 'none';
+                    } else {
+                        // Close all other dropdowns
+                        document.querySelectorAll('.dropdown-menu').forEach(m => m.style.display = 'none');
+                        menu.style.display = 'block';
+                        menu.style.position = 'relative';
+                        menu.style.opacity = '1';
+                        menu.style.visibility = 'visible';
+                        menu.style.transform = 'none';
+                    }
+                }
+            });
+        });
+        
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.length > 1) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        navMenu.classList.remove('active');
+                    }
+                }
+            });
+        });
+        
+        // Add parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                const scrolled = window.pageYOffset;
+                const heroContent = document.querySelector('.hero-content');
+                if (heroContent && scrolled < window.innerHeight) {
+                    heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+                    heroContent.style.opacity = 1 - (scrolled / window.innerHeight);
+                }
+            }
+        });
+        
+        // Add hover effect to feature cards
+        document.querySelectorAll('.feature-card, .detailed-card, .team-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.3s ease';
+            });
+        });
+        
+        // Chatbot interaction simulation
+        const chatWidget = document.querySelector('.chat-widget');
+        if (chatWidget) {
+            chatWidget.addEventListener('click', () => {
+                const newMessage = document.createElement('div');
+                newMessage.className = 'chat-message';
+                newMessage.innerHTML = '<strong>Bambinoo AI:</strong> How can I help you today?';
+                chatWidget.appendChild(newMessage);
+                chatWidget.scrollTop = chatWidget.scrollHeight;
+            });
+        }
+        
+        // Initialize language from memory
+        window.currentLanguage = 'en';
+        
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+        
+        // Prevent video modal from closing when clicking inside
+        document.querySelector('.video-modal .modal-content')?.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        
+        document.querySelectorAll('.modal-content').forEach(content => {
+            content.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        });
+        
+        // Add animation delay to feature cards
+        document.querySelectorAll('.features-grid .feature-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+        
+        // Add real-time input validation
+        document.querySelectorAll('input[type="email"]').forEach(input => {
+            input.addEventListener('blur', function() {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (this.value && !emailPattern.test(this.value)) {
+                    this.style.borderColor = '#ef4444';
+                    let errorMsg = this.nextElementSibling;
+                    if (!errorMsg || !errorMsg.classList.contains('error-msg')) {
+                        errorMsg = document.createElement('span');
+                        errorMsg.className = 'error-msg';
+                        errorMsg.style.color = '#ef4444';
+                        errorMsg.style.fontSize = '0.875rem';
+                        errorMsg.textContent = 'Please enter a valid email address';
+                        this.parentNode.appendChild(errorMsg);
+                    }
+                } else {
+                    this.style.borderColor = '#e2e8f0';
+                    const errorMsg = this.nextElementSibling;
+                    if (errorMsg && errorMsg.classList.contains('error-msg')) {
+                        errorMsg.remove();
+                    }
+                }
+            });
+        });
+        
+        // Add phone number formatting
+        document.querySelectorAll('input[type="tel"]').forEach(input => {
+            input.addEventListener('input', function() {
+                let value = this.value.replace(/\D/g, '');
+                if (value.length > 10) value = value.slice(0, 10);
+                this.value = value;
+            });
+        });
+        
+        // Scroll indicator functionality
+        document.querySelector('.scroll-indicator')?.addEventListener('click', () => {
+            document.querySelector('#quick-features').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Add intersection observer for better performance
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+        // Add active section highlighting in nav
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.color = 'var(--primary)';
+                } else {
+                    link.style.color = '';
+                }
+            });
+        });
+        
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                // Reset mobile menu on resize
+                if (window.innerWidth > 768) {
+                    navMenu.classList.remove('active');
+                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                        menu.style.display = '';
+                        menu.style.position = '';
+                    });
+                }
+            }, 250);
+        });
+        
+        // Add copyright year update
+        const currentYear = new Date().getFullYear();
+        document.querySelector('.footer-bottom p').innerHTML = 
+            `&copy; ${currentYear} Bambinoo CHDR System — All rights reserved.`;
+        
+        // Easter egg: Konami code
+        let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    document.body.style.animation = 'rainbow 2s infinite';
+                    setTimeout(() => {
+                        document.body.style.animation = '';
+                        konamiIndex = 0;
+                    }, 5000);
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+    </script>
+</body>
+</html>
