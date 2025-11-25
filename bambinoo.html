@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bambinoo — Child Health & Development Recording System</title>
+    <link rel="icon" type="image/png" href="img/site icon.png" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav id="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">
+          <img src="img/bambinoologo.png" alt="Bambinoo Logo" />
+        </a>
+
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#aim-mission">Aim & Mission</a></li>
+          <li><a href="#education">Education </a></li>
+
+          <li><a href="#videos">Videos</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#team">About Team</a></li>
+          <li><a href="#faq">Q&A</a></li>
+        </ul>
+
+        <div class="nav-buttons">
+          <button class="btn btn-outline" onclick="openModal('signinModal')">
+            Sign In
+          </button>
+
+          <a
+            href="Patient_Registration.html"
+            class="btn btn-primary"
+            style="text-decoration: none; color: white"
+            >Register</a
+          >
+        </div>
+
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="img/hero_video.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Bambinoo — Smart Child Growth & Health Monitoring</h1>
+        <p>
+          Empowering parents and healthcare professionals with AI-driven
+          insights for comprehensive child health and development tracking
+        </p>
+        <div class="hero-buttons">
+          <a
+            href="Patient_Registration.html"
+            class="btn btn-primary"
+            style="text-decoration: none; color: white"
+            >Get Started</a
+          >
+        </div>
+      </div>
+      <div
+        class="scroll-indicator"
+        onclick="smoothScroll('.global-impact-message')"
+      >
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </section>
+
+    <!-- Go To Top Button -->
+    <div class="go-top" id="goTop" onclick="smoothScroll('#home')">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <div class="global-impact-message">
+      <div class="impact-header">
+        Toghther we can change <br />
+        <span class="green-text">The world</span>
+      </div>
+      <div class="message">
+        Every child deserves a healthy start in life. Bambinoo CHDR helps make
+        that possible by giving families and healthcare workers everywhere
+        access to reliable, smart, and easy-to-use child health monitoring
+        tools. Our platform makes it simple to track growth, manage
+        immunisations, and spot early warning signs before they become crises.
+        With personalised, AI-informed meal plans and educational content,
+        parents gain practical guidance tailored to their child’s needs. By
+        centralising trusted health data, Bambinoo strengthens continuity of
+        care and empowers clinicians to act faster. Together, we support safer
+        childhoods, brighter futures, and healthier generations
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        &emsp;&emsp;&emsp;worldwide.
+      </div>
+    </div>
+
+    <!-- Quick Features -->
+    <div class="carousel">
+      <div class="group">
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-growth"
+        >
+          <i class="fas fa-chart-line"></i>
+          <h3>AI Growth Prediction</h3>
+          <p>
+            Advanced analytics to forecast growth trends and flag potential
+            risks early.
+          </p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-nutrition"
+        >
+          <i class="fas fa-utensils"></i>
+          <h3>AI-Generated Meal Plans</h3>
+          <p>
+            AI-powered meal planning based on age and health needs of the child
+          </p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-exercise"
+        >
+          <i class="fas fa-running"></i>
+          <h3>Track Child Milestones</h3>
+          <p>Monitor and track your child's growth all in one place</p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-chatbot"
+        >
+          <i class="fas fa-robot"></i>
+          <h3>Doctor-Parent Messaging</h3>
+          <p>
+            Real-time chat allows parents to connect with healthcare
+            professionals instantly
+          </p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-vaccination"
+        >
+          <i class="fas fa-syringe"></i>
+          <h3>Alerts & Notifications</h3>
+          <p>
+            Automatic reminders for vaccines, visits, and events to always be
+            informed
+          </p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-vaccination"
+        >
+          <i class="fas fa-book"></i>
+          <h3>Educational Content</h3>
+          <p>
+            AI-Suggested Educational content to keep parents educated on their
+            child's health
+          </p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-staff"
+        >
+          <i class="fas fa-user-md"></i>
+          <h3>Staff Dashboard</h3>
+          <p>Healthcare professional tools for efficient patient management</p>
+        </button>
+      </div>
+      <div aria-hidden class="group">
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-growth"
+        >
+          <i class="fas fa-chart-line"></i>
+          <h3>AI Growth Prediction</h3>
+          <p>
+            Advanced analytics to forecast growth trends and flag potential
+            risks early.
+          </p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-nutrition"
+        >
+          <i class="fas fa-utensils"></i>
+          <h3>AI-Generated Meal Plans</h3>
+          <p>
+            AI-powered meal planning based on age and health needs of the child
+          </p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-exercise"
+        >
+          <i class="fas fa-running"></i>
+          <h3>Track Child Milestones</h3>
+          <p>Monitor and track your child's growth all in one place</p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-chatbot"
+        >
+          <i class="fas fa-robot"></i>
+          <h3>Doctor-Parent Messaging</h3>
+          <p>
+            Real-time chat allows parents to connect with healthcare
+            professionals instantly
+          </p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-vaccination"
+        >
+          <i class="fas fa-syringe"></i>
+          <h3>Alerts & Notifications</h3>
+          <p>
+            Automatic reminders for vaccines, visits, and events to always be
+            informed
+          </p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-vaccination"
+        >
+          <i class="fas fa-book"></i>
+          <h3>Educational Content</h3>
+          <p>
+            AI-Suggested Educational content to keep parents educated on their
+            child's health
+          </p>
+        </button>
+        <button
+          type="button"
+          class="card-button card detailed-card"
+          data-target="#feature-staff"
+        >
+          <i class="fas fa-user-md"></i>
+          <h3>Staff Dashboard</h3>
+          <p>Healthcare professional tools for efficient patient management</p>
+        </button>
+      </div>
+    </div>
+
+    <!-- Aim & Mission -->
+    <section class="aim-mission" id="aim-mission">
+      <div class="container">
+        <h2 class="section-title" style="color: black">Our Aim & Mission</h2>
+        <div class="aim-mission-grid">
+          <div class="aim-card fade-in">
+            <h3><i class="fas fa-bullseye"></i> Our Aim</h3>
+            <p>
+              Create a digitalized child health monitoring record system that
+              helps parents monitor the growth and development of their children
+              while making the lives of doctors and nurses/midwives easier by
+              allowing them to analyze and record child data more efficiently
+            </p>
+          </div>
+          <div class="mission-card fade-in">
+            <h3><i class="fas fa-heart"></i> Our Mission</h3>
+            <p>
+              Empower parents and health workers with a simple, secure digital
+              child-health record that tracks growth, flags risks early, and
+              turns real-time child data into faster, smarter care.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education-section" id="education">
+      <div class="container">
+        <h2 class="section-title">Child Development Education</h2>
+        <p class="section-subtitle">
+          Comprehensive guides for every stage of your child's journey
+        </p>
+
+        <div class="education-container">
+          <div class="education-menu fade-in">
+            <div class="education-item active" data-target="before-birth">
+              <i class="fas fa-baby"></i> Before Birth
+            </div>
+            <div class="education-item" data-target="0-3">
+              <i class="fas fa-baby-carriage"></i> 0–3 Months
+            </div>
+            <div class="education-item" data-target="3-12">
+              <i class="fas fa-child"></i> 3–12 Months
+            </div>
+            <div class="education-item" data-target="1-2">
+              <i class="fas fa-running"></i> 1–2 Years
+            </div>
+            <div class="education-item" data-target="2-5">
+              <i class="fas fa-school"></i> 2–5 Years
+            </div>
+          </div>
+
+          <div class="education-content fade-in">
+            <div class="breadcrumb">
+              <span>Education</span> <i class="fas fa-chevron-right"></i>
+              <span id="currentSection">Before Birth</span>
+            </div>
+
+            <div id="educationContent">
+              <div class="content-cards">
+                <a
+                  href="https://www.mayoclinic.org/healthy-lifestyle/pregnancy-week-by-week/in-depth/prenatal-care/art-20044882"
+                  target="_blank"
+                  class="content-card-wrapper"
+                >
+                  <div class="content-card">
+                    <h3>Prenatal Care</h3>
+                    <p>
+                      Essential vitamins, nutrition, and health checkups during
+                      pregnancy
+                    </p>
+                  </div>
+                </a>
+                <a
+                  href="https://www.zerotothree.org/resource/before-birth-prenatal-development-for-baby-mom-and-dad/"
+                  target="_blank"
+                  class="content-card-wrapper"
+                >
+                  <div class="content-card">
+                    <h3>Fetal Development</h3>
+                    <p>
+                      Understanding your baby's growth stages month by month
+                    </p>
+                  </div>
+                </a>
+                <a
+                  href="https://mcpress.mayoclinic.org/pregnancy/planning-and-nesting-what-do-you-actually-need/"
+                  target="_blank"
+                  class="content-card-wrapper"
+                >
+                  <div class="content-card">
+                    <h3>Preparing for Birth</h3>
+                    <p>Hospital bags, birth plans, and what to expect</p>
+                  </div>
+                </a>
+                <a
+                  href="https://www.mayoclinic.org/healthy-lifestyle/pregnancy-week-by-week/in-depth/depression-during-pregnancy/art-20237875"
+                  target="_blank"
+                  class="content-card-wrapper"
+                >
+                  <div class="content-card">
+                    <h3>Mental Health</h3>
+                    <p>Managing stress and emotions during pregnancy</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Detailed -->
+    <section class="features-detailed" id="features">
+      <div class="container">
+        <h2 class="section-title">Comprehensive Features</h2>
+        <p class="section-subtitle">
+          Powerful tools designed for modern child healthcare
+        </p>
+
+        <div class="features-detailed-grid">
+          <div id="feature-growth" class="detailed-card fade-in">
+            <i class="fas fa-chart-line"></i>
+            <h3>AI Growth Predictions</h3>
+            <p>
+              Advanced analytics for tracking physical and cognitive development
+            </p>
+            <ul>
+              <li>Real-time weight & height tracking</li>
+              <li>risks assessed alerts</li>
+              <li>Growth percentile comparisons</li>
+              <li>Predictive health insights</li>
+            </ul>
+            <canvas id="growthChart"></canvas>
+          </div>
+
+          <div id="feature-nutrition" class="detailed-card fade-in">
+            <i class="fas fa-utensils"></i>
+            <h3>Nutrition & Food Prediction</h3>
+            <p>AI-powered meal planning based on age and health needs</p>
+            <ul>
+              <li>Personalized meal recommendations</li>
+              <li>Allergy and intolerance tracking</li>
+              <li>Nutritional value analysis</li>
+              <li>Real-time suggestions</li>
+            </ul>
+            <button
+              class="btn btn-primary"
+              style="margin-top: 1rem"
+              onclick="openModal('learnMoreModal')"
+            >
+              Learn More
+            </button>
+          </div>
+
+          <div id="feature-exercise" class="detailed-card fade-in">
+            <i class="fas fa-running"></i>
+            <h3>Track Child Milestones</h3>
+            <br />
+            <p>Monitor and track your child's growth all in one place</p>
+            <ul>
+              <li>Activity duration tracking</li>
+              <li>Motor skill development</li>
+              <li>Fun interactive challenges</li>
+              <li>Risk assessed monitoring</li>
+            </ul>
+            <button
+              class="btn btn-primary"
+              style="margin-top: 1rem"
+              onclick="openModal('learnMoreModal')"
+            >
+              Learn More
+            </button>
+          </div>
+
+          <div id="feature-chatbot" class="detailed-card fade-in">
+            <i class="fas fa-robot"></i>
+            <h3>Doctor-Parent Messaging</h3>
+            <p>
+              Real-time chat allows parents to connect with healthcare
+              professionals instantly
+            </p>
+            <div class="chat-widget">
+              <div class="chat-message user">
+                <strong>You:</strong> Hi doctor, theres been an emergency
+              </div>
+            </div>
+          </div>
+
+          <div id="feature-vaccination" class="detailed-card fade-in">
+            <i class="fas fa-syringe"></i>
+            <h3>Alerts & Notifications</h3>
+            <p>
+              Automatic reminders for vaccines, visits, and events to always be
+              informed
+            </p>
+            <ul>
+              <li>Appointment schedule tracking</li>
+              <li>SMS and email notifications</li>
+              <li>Vaccine history records</li>
+              <li>Health clinic & vaccination camp event reminders</li>
+            </ul>
+            <button
+              class="btn btn-primary"
+              style="margin-top: 1rem"
+              onclick="openModal('learnMoreModal')"
+            >
+              Learn More
+            </button>
+          </div>
+
+          <div id="feature-staff" class="detailed-card fade-in">
+            <i class="fas fa-user-md"></i>
+            <h3>Staff Dashboard</h3>
+            <p>
+              Healthcare professional tools for efficient patient management
+            </p>
+            <ul>
+              <li>Patient record access</li>
+              <li>Appointment scheduling</li>
+              <li>Analytics and reporting</li>
+              <li>Prescription management</li>
+            </ul>
+            <button
+              class="btn btn-primary"
+              style="margin-top: 1rem"
+              onclick="openModal('learnMoreModal')"
+            >
+              Learn More
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Team -->
+    <section id="team">
+      <div class="container" style="padding: 0 16rem">
+        <h2 class="section-title">Meet The Developers</h2>
+        <p class="section-subtitle">
+          Bambinoo is a system focused on Child Health Monitoring, developed by
+          the University of Westminster 2nd-year Group 141 students.
+        </p>
+
+        <div class="team-grid" style="gap: 1.5rem">
+          <div class="team-card fade-in" style="max-width: 18rem">
+            <img
+              class="male-img"
+              src="img/team/Thinal Fernando.JPG"
+              alt="Team Member"
+            />
+            <h3>Thinal Fernando</h3>
+            <p class="male-role">Developer</p>
+            <p>Frontend, Backend, ML Specialist</p>
+          </div>
+          <div class="team-card fade-in" style="max-width: 18rem">
+            <img
+              class="male-img"
+              src="img/team/7. Lakindu Jayathilaka (Passport size).jpg"
+              alt="Team Member"
+            />
+            <h3>Lakindu Jayathilaka</h3>
+            <p class="male-role">Developer</p>
+            <p>Frontend, Backend Specialist</p>
+          </div>
+          <div class="team-card fade-in" style="max-width: 18rem">
+            <img
+              class="male-img"
+              src="https://api.dicebear.com/7.x/avataaars/svg?seed=David"
+              alt="Team Member"
+            />
+            <h3>Dilum Samarathunga</h3>
+            <p class="male-role">Developer</p>
+            <p>ML, Database Specialist</p>
+          </div>
+        </div>
+        <div class="team-grid" style="gap: 1.5rem">
+          <div class="team-card fade-in" style="max-width: 18rem">
+            <img
+              class="female-img"
+              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Michael"
+              alt="Team Member"
+            />
+            <h3>Yasadya Lakdini</h3>
+            <p class="female-role">Developer</p>
+            <p>UI/UX and Frontend Specialist</p>
+          </div>
+          <div class="team-card fade-in" style="max-width: 18rem">
+            <img
+              class="male-img"
+              src="https://api.dicebear.com/7.x/avataaars/svg?seed=David"
+              alt="Team Member"
+            />
+            <h3>Dilmith Laktharana</h3>
+            <p class="male-role">Developer</p>
+            <p>ML and UI/UX Specialist</p>
+          </div>
+          <div class="team-card fade-in" style="max-width: 18rem">
+            <img
+              class="female-img"
+              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Emily"
+              alt="Team Member"
+            />
+            <h3>Nichelle Jeewandara</h3>
+            <p class="female-role">Developer</p>
+            <p>UI/UX Database Specialist</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="features-detailed" id="faq">
+      <div class="container">
+        <h2 class="section-title">Q&A — Common Questions</h2>
+        <p class="section-subtitle">
+          Everything you need to know about Bambinoo
+        </p>
+
+        <div class="faq-container">
+          <div class="faq-item fade-in">
+            <div class="faq-question">
+              <span>How does Bambinoo track child growth?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Bambinoo uses AI algorithms to analyze weight, height, and
+                developmental milestones entered by parents or healthcare
+                providers. The system compares data against WHO growth standards
+                and provides percentile rankings and predictive insights.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fade-in">
+            <div class="faq-question">
+              <span>Are AI-powered meal plans personalized?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Yes, meal suggestions are generated based on your child's age,
+                weight, allergies, and progress. The AI analyzes CHDR data and
+                adjusts recommendations, such as focusing on protein for
+                underweight children, using WHO guidelines.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fade-in">
+            <div class="faq-question">
+              <span>Are notifications and alerts automatic?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Yes, CHDR sends customizable push, email, or SMS reminders for
+                vaccinations, check-ups, and events based on staff-set
+                schedules. Mothers can adjust preferences, and staff can manage
+                group alerts efficiently.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fade-in">
+            <div class="faq-question">
+              <span>Does it work offline?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Basic features like viewing stored records and entering new data
+                work offline. The information syncs automatically when you
+                reconnect to the internet. AI features require an internet
+                connection.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fade-in">
+            <div class="faq-question">
+              <span>How does AI enhance analytics for doctors?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                AI provides predictive growth charts forecasting metrics against
+                WHO standards, recovery suggestions for deviations, and risk
+                assessments scoring issues like malnutrition. It processes CHDR
+                data optionally, delivering actionable insights to improve child
+                health interventions.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fade-in">
+            <div class="faq-question">
+              <span
+                >What role does the admin panel play in system oversight?</span
+              >
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                The admin panel handles staff registration with role
+                assignments, system configurations like AI thresholds, audit
+                logs for actions, and full portal access for impersonation. It
+                also manages integrations with national systems.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fade-in">
+            <div class="faq-question">
+              <span>Who prepares educational content?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Our educational like videos, articles, and reports on
+                milestones, and emergency care are curated from reliable sources
+                such as the Family Health Bureau. AI personalizes
+                recommendations based on your child's risk level.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fade-in">
+            <div class="faq-question">
+              <span>Can I request reports through the platform?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Yes, mothers can submit requests for physical or digital
+                reports. Track status in real-time, and staff generate them with
+                charts for easy verification.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item fade-in">
+            <div class="faq-question">
+              <span>Can I add multiple children to one account?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>
+                Yes, you can manage multiple children's profiles under a single
+                parent account. Each child has their own separate health
+                records, vaccination schedules, and growth tracking.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-brand">
+          <img src="img/bambinoologo.png" alt="Bambinoo Logo" />
+          <div>
+            <h3>Bambinoo CHDR</h3>
+            <p>Smart Child Health Monitoring</p>
+          </div>
+        </div>
+
+        <div class="footer-grid">
+          <div class="footer-column">
+            <h4>Features</h4>
+            <ul>
+              <li><a href="#features">AI Growth Monitoring</a></li>
+              <li><a href="#features">Nutrition Guidance</a></li>
+              <li><a href="#features">Vaccination Alerts</a></li>
+              <li><a href="#features">AI suggestions</a></li>
+              <li><a href="#features">Staff Dashboard</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Education</h4>
+            <ul>
+              <li><a href="#education">Before Birth</a></li>
+              <li><a href="#education">0-3 Months</a></li>
+              <li><a href="#education">3-12 Months</a></li>
+              <li><a href="#education">1-2 Years</a></li>
+              <li><a href="#education">2-5 Years</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#team">About Team</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="Bambinoo_privacy.html">Privacy Policy</a></li>
+              <li><a href="Bambinoo_terms.html">Terms of Service</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4>Contact</h4>
+            <p><i class="fas fa-envelope"></i> Bambinoo.medi@gmail.com</p>
+            <br />
+            <p><i class="fas fa-map-marker-alt"></i> Colombo, Sri Lanka</p>
+
+            <div class="social-icons">
+              <a href="https://www.instagram.com/bambinoo.lk/"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Bambinoo CHDR System — All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Sign In Modal -->
+    <div class="modal" id="signinModal">
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('signinModal')"
+          >&times;</span
+        >
+        <h2>Sign In to Bambinoo</h2>
+        <form>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <div class="password-toggle">
+              <input
+                type="password"
+                id="signinPassword"
+                placeholder="Enter your password"
+                required
+              />
+              <i
+                class="fas fa-eye"
+                onclick="togglePassword('signinPassword')"
+              ></i>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="width: 100%; margin-top: 1rem"
+          >
+            Sign In
+          </button>
+          <p style="text-align: center; margin-top: 1rem">
+            Don't have an account?
+            <a href="Patient_Registration.html">Register</a>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Learn More Modal -->
+    <div class="modal" id="learnMoreModal">
+      <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('learnMoreModal')"
+          >&times;</span
+        >
+        <h2>Feature Details</h2>
+        <p>
+          This feature provides comprehensive support for child health and
+          development. Our AI-powered system analyzes data to give you
+          personalized recommendations and insights.
+        </p>
+        <ul style="margin: 1.5rem 0; padding-left: 1.5rem">
+          <li>Real-time monitoring and alerts</li>
+          <li>Personalized recommendations</li>
+          <li>Historical data analysis</li>
+          <li>Integration with healthcare providers</li>
+          <li>Mobile and web access</li>
+        </ul>
+        <button
+          class="btn btn-primary"
+          onclick="closeModal('learnMoreModal'); openModal('registerModal')"
+        >
+          Get Started
+        </button>
+      </div>
+    </div>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>
