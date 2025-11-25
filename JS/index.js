@@ -1,3 +1,146 @@
+// Language translations
+const translations = {
+  en: {
+    navHome: "Home",
+    navEducation: "Education",
+    navVideos: "Videos",
+    navFeatures: "Features",
+    navAimMission: "Aim & Mission",
+    navQA: "Q&A",
+    navTeam: "About Team",
+    btnSignIn: "Sign In",
+    btnRegister: "Register",
+    heroTitle: "Bambinoo — Smart Child Growth & Health Monitoring",
+    heroSubtitle:
+      "Empowering parents and healthcare professionals with AI-driven insights for comprehensive child health and development tracking",
+    btnGetStarted: "Get Started",
+    btnWatchIntro: "Watch Intro",
+    quickFeature1Title: "AI Growth Monitoring",
+    quickFeature1Desc: "Track development milestones",
+    quickFeature2Title: "Nutrition Recommendations",
+    quickFeature2Desc: "Personalized meal plans",
+    quickFeature3Title: "Vaccination Alerts",
+    quickFeature3Desc: "Never miss immunizations",
+    quickFeature4Title: "AI Chatbot",
+    quickFeature4Desc: "24/7 health assistance",
+    quickFeature5Title: "Digital Medical Records",
+    quickFeature5Desc: "Secure cloud storage",
+    aimMissionTitle: "Our Aim & Mission",
+    aimTitle: "Our Aim",
+    aimText:
+      "Create a digitalised child health monitoring record system that helps parents monitor the growth and development of their children while making the lives of doctors and nurses/midwives easier by allowing them to analyse and record child data more efficiently.",
+    missionTitle: "Our Mission",
+    missionText:
+      "Ensure proactive child health care with AI-driven monitoring, nutrition and exercise guidance, vaccination alerts, and digital medical records. We empower families and healthcare professionals with intelligent tools for optimal child development.",
+    educationTitle: "Child Development Education",
+    educationSubtitle:
+      "Comprehensive guides for every stage of your child's journey",
+    videoTitle: "Video Library",
+    videoSubtitle: "Expert guidance and tutorials for child care",
+    featuresTitle: "Comprehensive Features",
+    featuresSubtitle: "Powerful tools designed for modern child healthcare",
+    teamTitle: "Meet Our Team",
+    teamSubtitle:
+      "Dedicated professionals committed to child health innovation",
+    faqTitle: "Q&A — Common Questions",
+    faqSubtitle: "Everything you need to know about Bambinoo",
+    footerText: "Smart Child Health Monitoring",
+  },
+  si: {
+    navHome: "මුල් පිටුව",
+    navEducation: "අධ්‍යාපනය",
+    navVideos: "වීඩියෝ",
+    navFeatures: "විශේෂාංග",
+    navAimMission: "අරමුණ සහ මෙහෙවර",
+    navQA: "ප්‍රශ්න සහ පිළිතුරු",
+    navTeam: "අපගේ කණ්ඩායම",
+    btnSignIn: "පුරනය වන්න",
+    btnRegister: "ලියාපදිංචි වන්න",
+    heroTitle: "බම්බිනූ — බුද්ධිමත් ළමා වර්ධන හා සෞඛ්‍ය නිරීක්ෂණය",
+    heroSubtitle:
+      "සවිස්තරාත්මක ළමා සෞඛ්‍ය සහ වර්ධන ලුහුබැඳීම සඳහා AI මගින් ධාවනය වන තීක්ෂ්ණ බුද්ධියෙන් දෙමාපියන් සහ සෞඛ්‍ය සේවා වෘත්තිකයින් සවිබල ගැන්වීම",
+    btnGetStarted: "ආරම්භ කරන්න",
+    btnWatchIntro: "හැඳින්වීම බලන්න",
+    quickFeature1Title: "AI වර්ධන නිරීක්ෂණය",
+    quickFeature1Desc: "සංවර්ධන සන්ධිස්ථාන නිරීක්ෂණය",
+    quickFeature2Title: "පෝෂණ නිර්දේශ",
+    quickFeature2Desc: "පුද්ගලීකරණය කළ ආහාර සැලසුම්",
+    quickFeature3Title: "එන්නත් ඇඟවීම්",
+    quickFeature3Desc: "ප්‍රතිශක්තිකරණ මග හරින්න එපා",
+    quickFeature4Title: "AI චැට්බොට්",
+    quickFeature4Desc: "24/7 සෞඛ්‍ය සහාය",
+    quickFeature5Title: "ඩිජිටල් වෛද්‍ය වාර්තා",
+    quickFeature5Desc: "ආරක්ෂිත වලාකුළු ගබඩාව",
+    aimMissionTitle: "අපගේ අරමුණ සහ මෙහෙවර",
+    aimTitle: "අපගේ අරමුණ",
+    aimText:
+      "දෙමාපියන්ට තම දරුවන්ගේ වර්ධනය සහ සංවර්ධනය නිරීක්ෂණය කිරීමට උපකාර කරන ඩිජිටල්කරණය වූ ළමා සෞඛ්‍ය නිරීක්ෂණ වාර්තා පද්ධතියක් නිර්මාණය කිරීම, එමගින් වෛද්‍යවරුන්ගේ සහ හෙද/මාතෘ සාරථිවරුන්ගේ ජීවිත පහසු කරමින් ළමා දත්ත වඩාත් කාර්යක්ෂමව විශ්ලේෂණය කර වාර්තා කිරීමට ඔවුන්ට ඉඩ සලසයි.",
+    missionTitle: "අපගේ මෙහෙවර",
+    missionText:
+      "AI මගින් ධාවනය වන නිරීක්ෂණය, පෝෂණ සහ ව්‍යායාම මාර්ගෝපදේශ, එන්නත් ඇඟවීම් සහ ඩිජිටල් වෛද්‍ය වාර්තා සමඟ ක්‍රියාශීලී ළමා සෞඛ්‍ය සේවාව සහතික කරන්න. ප්‍රශස්ත ළමා සංවර්ධනය සඳහා බුද්ධිමත් මෙවලම් සමඟ අපි පවුල් සහ සෞඛ්‍ය සේවා වෘත්තිකයින් සවිබල ගන්වමු.",
+    educationTitle: "ළමා සංවර්ධන අධ්‍යාපනය",
+    educationSubtitle:
+      "ඔබේ දරුවාගේ ගමනේ සෑම අදියරක් සඳහාම විස්තීර්ණ මාර්ගෝපදේශ",
+    videoTitle: "වීඩියෝ පුස්තකාලය",
+    videoSubtitle: "ළමා සත්කාර සඳහා විශේෂඥ මාර්ගෝපදේශ සහ නිබන්ධන",
+    featuresTitle: "සවිස්තරාත්මක විශේෂාංග",
+    featuresSubtitle: "නවීන ළමා සෞඛ්‍ය සේවා සඳහා නිර්මාණය කළ ප්‍රබල මෙවලම්",
+    teamTitle: "අපගේ කණ්ඩායම හමුවන්න",
+    teamSubtitle: "ළමා සෞඛ්‍ය නවෝත්පාදනය සඳහා කැපවූ වෘත්තිකයින්",
+    faqTitle: "ප්‍රශ්න සහ පිළිතුරු — පොදු ප්‍රශ්න",
+    faqSubtitle: "බම්බිනූ ගැන ඔබ දැන ගත යුතු සියල්ල",
+    footerText: "බුද්ධිමත් ළමා සෞඛ්‍ය නිරීක්ෂණය",
+  },
+  ta: {
+    navHome: "முகப்பு",
+    navEducation: "கல்வி",
+    navVideos: "வீடியோக்கள்",
+    navFeatures: "அம்சங்கள்",
+    navAimMission: "நோக்கம் & பணி",
+    navQA: "கே&பி",
+    navTeam: "எங்கள் குழு",
+    btnSignIn: "உள்நுழைக",
+    btnRegister: "பதிவு செய்க",
+    heroTitle: "பம்பினூ — ஸ்மார்ட் குழந்தை வளர்ச்சி & சுகாதார கண்காணிப்பு",
+    heroSubtitle:
+      "விரிவான குழந்தை சுகாதாரம் மற்றும் வளர்ச்சி கண்காணிப்புக்கான AI-இயக்கப்படும் நுண்ணறிவுகளுடன் பெற்றோர்கள் மற்றும் சுகாதார வல்லுநர்களை மேம்படுத்துதல்",
+    btnGetStarted: "தொடங்குங்கள்",
+    btnWatchIntro: "அறிமுகம் பார்க்க",
+    quickFeature1Title: "AI வளர்ச்சி கண்காணிப்பு",
+    quickFeature1Desc: "வளர்ச்சி மைல்கற்களை கண்காணிக்கவும்",
+    quickFeature2Title: "ஊட்டச்சத்து பரிந்துரைகள்",
+    quickFeature2Desc: "தனிப்பயனாக்கப்பட்ட உணவு திட்டங்கள்",
+    quickFeature3Title: "தடுப்பூசி எச்சரிக்கைகள்",
+    quickFeature3Desc: "நோய்த்தடுப்பு தவறவிடாதீர்கள்",
+    quickFeature4Title: "AI சாட்பாட்",
+    quickFeature4Desc: "24/7 சுகாதார உதவி",
+    quickFeature5Title: "டிஜிட்டல் மருத்துவ பதிவுகள்",
+    quickFeature5Desc: "பாதுகாப்பான கிளவுட் சேமிப்பு",
+    aimMissionTitle: "எங்கள் நோக்கம் & பணி",
+    aimTitle: "எங்கள் நோக்கம்",
+    aimText:
+      "பெற்றோர்கள் தங்கள் குழந்தைகளின் வளர்ச்சி மற்றும் மேம்பாட்டை கண்காணிக்க உதவும் டிஜிட்டல் மயமாக்கப்பட்ட குழந்தை சுகாதார கண்காணிப்பு பதிவு அமைப்பை உருவாக்குதல், அதே நேரத்தில் மருத்துவர்கள் மற்றும் செவிலியர்கள்/மருத்துவச்சிகளின் வாழ்க்கையை எளிதாக்குவதன் மூலம் அவர்கள் குழந்தை தரவை மிகவும் திறமையாக பகுப்பாய்வு செய்ய மற்றும் பதிவு செய்ய அனுமதிக்கிறது.",
+    missionTitle: "எங்கள் பணி",
+    missionText:
+      "AI-இயக்கப்படும் கண்காணிப்பு, ஊட்டச்சத்து மற்றும் உடற்பயிற்சி வழிகாட்டுதல், தடுப்பூசி எச்சரிக்கைகள் மற்றும் டிஜிட்டல் மருத்துவ பதிவுகளுடன் செயலூக்கமான குழந்தை சுகாதார பராமரிப்பை உறுதி செய்யவும். உகந்த குழந்தை மேம்பாட்டிற்கான அறிவார்ந்த கருவிகளுடன் குடும்பங்கள் மற்றும் சுகாதார நிபுணர்களை நாங்கள் மேம்படுத்துகிறோம்.",
+    educationTitle: "குழந்தை வளர்ச்சி கல்வி",
+    educationSubtitle:
+      "உங்கள் குழந்தையின் பயணத்தின் ஒவ்வொரு கட்டத்திற்கும் விரிவான வழிகாட்டிகள்",
+    videoTitle: "வீடியோ நூலகம்",
+    videoSubtitle:
+      "குழந்தை பராமரிப்புக்கான நிபுணர் வழிகாட்டுதல் மற்றும் டுடோரியல்கள்",
+    featuresTitle: "விரிவான அம்சங்கள்",
+    featuresSubtitle:
+      "நவீன குழந்தை சுகாதாரத்திற்காக வடிவமைக்கப்பட்ட சக்திவாய்ந்த கருவிகள்",
+    teamTitle: "எங்கள் குழுவை சந்திக்கவும்",
+    teamSubtitle:
+      "குழந்தை சுகாதார கண்டுபிடிப்புக்கு அர்ப்பணிக்கப்பட்ட வல்லுநர்கள்",
+    faqTitle: "கே&பி — பொதுவான கேள்விகள்",
+    faqSubtitle: "பம்பினூ பற்றி நீங்கள் தெரிந்து கொள்ள வேண்டிய அனைத்தும்",
+    footerText: "ஸ்மார்ட் குழந்தை சுகாதார கண்காணிப்பு",
+  },
+};
+
 // Current language state
 let currentLang = "en";
 
@@ -147,7 +290,7 @@ function smoothScroll(target) {
   }
 }
 
-// Education section switching --------------------------------------------------------
+// Education section switching
 const educationItems = document.querySelectorAll(".education-item");
 const educationData = {
   "before-birth": {
@@ -310,7 +453,7 @@ function closeModal(modalId) {
 function openVideoModal(videoId) {
   const modal = document.getElementById("videoModal");
   const iframe = document.getElementById("videoFrame");
-  iframe.src = `https://www.youtube.com/watch?v=${videoId}`;
+  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
   modal.classList.add("active");
   document.body.style.overflow = "hidden";
 }
@@ -596,6 +739,25 @@ document.querySelector(".scroll-indicator")?.addEventListener("click", () => {
   document
     .querySelector("#quick-features")
     .scrollIntoView({ behavior: "smooth" });
+});
+
+// Make carousel cards act like buttons: scroll to matching detailed feature
+document.addEventListener("DOMContentLoaded", () => {
+  const carouselCards = document.querySelectorAll(".card-button[data-target]");
+  carouselCards.forEach((card) => {
+    card.addEventListener("click", (e) => {
+      const target = card.dataset.target;
+      if (target) {
+        // Use existing smoothScroll helper if available
+        if (typeof smoothScroll === "function") {
+          smoothScroll(target);
+        } else {
+          const el = document.querySelector(target);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    });
+  });
 });
 
 // Add intersection observer for better performance

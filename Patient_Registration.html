@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bambinooo - Child Registration</title>
+    <link rel="stylesheet" href="css/registraion_styles.css" />
+    <link rel="shortcut icon" href="img/site icon.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo-section">
+        <div class="logo">
+          <img
+            style="width: 55%"
+            src="img/bambinoologo.png"
+            alt="Bambinoo logo"
+          />
+        </div>
+        <div class="logo-text">Welcome to Bambinooo</div>
+        <div class="subtitle">Child Health & Development Registry</div>
+      </div>
+
+      <div class="progress-bar">
+        <div class="steps">
+          <div class="progress-line">
+            <div class="progress-line-fill" id="progressFill"></div>
+          </div>
+          <div class="step active" data-step="0">
+            <div class="step-number">1</div>
+            <div class="step-label">Agreement</div>
+          </div>
+          <div class="step" data-step="1">
+            <div class="step-number">2</div>
+            <div class="step-label">Child Info</div>
+          </div>
+          <div class="step" data-step="2">
+            <div class="step-number">3</div>
+            <div class="step-label">Mother Info</div>
+          </div>
+          <div class="step" data-step="3">
+            <div class="step-number">4</div>
+            <div class="step-label">Birth Details</div>
+          </div>
+          <div class="step" data-step="4">
+            <div class="step-number">5</div>
+            <div class="step-label">Medical</div>
+          </div>
+          <div class="step" data-step="5">
+            <div class="step-number">6</div>
+            <div class="step-label">Address</div>
+          </div>
+          <div class="step" data-step="6">
+            <div class="step-number">7</div>
+            <div class="step-label">Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <!-- Step 0: Agreement -->
+        <div class="section active" id="section0">
+          <h2 class="section-title">Terms & Conditions</h2>
+          <p class="section-description">
+            Please review and accept our terms before proceeding
+          </p>
+
+          <div class="checkbox-container">
+            <div class="terms-title">Registration Agreement</div>
+            <ul class="terms-list">
+              <li>
+                I confirm that all information provided is accurate and complete
+              </li>
+              <li>
+                I consent to the collection and processing of this medical data
+              </li>
+              <li>
+                I understand this information will be shared with assigned
+                medical personnel
+              </li>
+              <li>
+                I agree to notify the hospital of any changes to the provided
+                information
+              </li>
+              <li>
+                I consent to the use of this data for medical treatment and
+                record keeping
+              </li>
+            </ul>
+
+            <div class="checkbox-wrapper" id="agreeWrapper">
+              <input type="checkbox" id="agreeTerms" />
+              <label for="agreeTerms"
+                >I have read and agree to all terms and conditions</label
+              >
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-primary" id="startBtn" disabled>
+              Continue to Registration
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 1: Child Information -->
+        <div class="section" id="section1">
+          <h2 class="section-title">Child Information</h2>
+          <p class="section-description">
+            Please provide basic information about the child
+          </p>
+
+          <div class="form-group">
+            <label>Child's Full Name <span class="required">*</span></label>
+            <input
+              type="text"
+              id="childName"
+              placeholder="Enter full name"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date of Birth <span class="required">*</span></label>
+              <input type="date" id="childDOB" required />
+            </div>
+            <div class="form-group">
+              <label>Nationality <span class="required">*</span></label>
+              <input
+                type="text"
+                id="nationality"
+                placeholder="e.g., Sri Lankan"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label
+                >Child Number in Family <span class="required">*</span></label
+              >
+              <select id="childNumber" required>
+                <option value="">Select position in family</option>
+                <option value="1">1st Baby</option>
+                <option value="2">2nd Baby</option>
+                <option value="3">3rd Baby</option>
+                <option value="4">4th Baby</option>
+                <option value="5">5th Baby</option>
+                <option value="6">6th Baby or More</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preferred Language <span class="required">*</span></label>
+              <select id="language" required>
+                <option value="">Select language</option>
+                <option value="Sinhala">Sinhala</option>
+                <option value="Tamil">Tamil</option>
+                <option value="English">English</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="prevSection()">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="nextSection()">
+              Continue
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Mother Information -->
+        <div class="section" id="section2">
+          <h2 class="section-title">Mother Information</h2>
+          <p class="section-description">
+            Please provide information about the mother
+          </p>
+
+          <div class="form-group">
+            <label>Mother's Full Name <span class="required">*</span></label>
+            <input
+              type="text"
+              id="motherName"
+              placeholder="Enter full name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label
+              >Mother's Date of Birth <span class="required">*</span></label
+            >
+            <input type="date" id="motherDOB" required />
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="prevSection()">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="nextSection()">
+              Continue
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Birth Details -->
+        <div class="section" id="section3">
+          <h2 class="section-title">Birth Details</h2>
+          <p class="section-description">
+            Please provide details about the birth
+          </p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Birth Location <span class="required">*</span></label>
+              <input
+                type="text"
+                id="birthLocation"
+                placeholder="City, Country"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Birth Hospital/Home <span class="required">*</span></label>
+              <input
+                type="text"
+                id="birthHospital"
+                placeholder="Hospital name"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Type of Delivery <span class="required">*</span></label>
+            <select id="deliveryType" required>
+              <option value="">Select delivery type</option>
+              <option value="Normal Vaginal">Normal Vaginal Delivery</option>
+              <option value="Cesarean">Cesarean Section (C-Section)</option>
+              <option value="Assisted Vaginal">
+                Assisted Vaginal (Forceps/Vacuum)
+              </option>
+              <option value="Water Birth">Water Birth</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label
+              >Was surgery performed during delivery?
+              <span class="required">*</span></label
+            >
+            <div class="radio-group">
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="surgeryYes"
+                  name="surgery"
+                  value="Yes"
+                  required
+                />
+                <label for="surgeryYes">Yes</label>
+              </div>
+              <div class="radio-option">
+                <input
+                  type="radio"
+                  id="surgeryNo"
+                  name="surgery"
+                  value="No"
+                  required
+                />
+                <label for="surgeryNo">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Birth Weight (kg) <span class="required">*</span></label>
+              <input
+                type="number"
+                id="birthWeight"
+                step="0.01"
+                placeholder="e.g., 3.2"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Birth Length (cm) <span class="required">*</span></label>
+              <input
+                type="number"
+                id="birthLength"
+                step="0.1"
+                placeholder="e.g., 50.5"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label
+              >Head Circumference (cm) <span class="required">*</span></label
+            >
+            <input
+              type="number"
+              id="headCircumference"
+              step="0.1"
+              placeholder="e.g., 35.0"
+              required
+            />
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="prevSection()">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="nextSection()">
+              Continue
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Medical Personnel -->
+        <div class="section" id="section4">
+          <h2 class="section-title">Medical Personnel</h2>
+          <p class="section-description">
+            Who will be the assigned healthcare provider?
+          </p>
+
+          <div class="form-group">
+            <label>Personnel Type <span class="required">*</span></label>
+            <select id="personnelType" required>
+              <option value="">Select healthcare provider type</option>
+              <option value="Doctor">Doctor</option>
+              <option value="Midwife">Midwife</option>
+              <option value="Nurse">Nurse</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Personnel Name <span class="required">*</span></label>
+            <input
+              type="text"
+              id="personnelName"
+              placeholder="Enter full name"
+              required
+            />
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="prevSection()">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="nextSection()">
+              Continue
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 5: Address -->
+        <div class="section" id="section5">
+          <h2 class="section-title">Contact Information</h2>
+          <p class="section-description">Where can we reach you?</p>
+
+          <div class="form-group">
+            <label
+              >Patient Living Address <span class="required">*</span></label
+            >
+            <textarea
+              id="livingAddress"
+              placeholder="Street address, City, State, Postal Code"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Registration Date <span class="required">*</span></label>
+            <input type="date" id="registrationDate" readonly />
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="prevSection()">
+              Back
+            </button>
+            <button class="btn btn-primary" onclick="nextSection()">
+              Review Information
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 6: Review & Confirm -->
+        <div class="section" id="section6">
+          <h2 class="section-title">Review Your Information</h2>
+          <p class="section-description">
+            Please review all the information carefully before submitting
+          </p>
+
+          <div class="review-container" id="reviewContainer">
+            <!-- Content will be populated by JavaScript -->
+          </div>
+
+          <div class="checkbox-container" style="margin-top: 24px">
+            <div class="terms-title" style="color: #e53e3e">
+              ⚠️ Important Notice
+            </div>
+            <p
+              style="
+                color: #4a5568;
+                font-size: 14px;
+                margin-bottom: 16px;
+                line-height: 1.6;
+              "
+            >
+              Once you submit this registration,
+              <strong>you will not be able to edit any information</strong>.
+              Please ensure all details are correct before proceeding.
+            </p>
+
+            <div class="checkbox-wrapper" id="confirmWrapper">
+              <input type="checkbox" id="confirmCorrect" />
+              <label for="confirmCorrect"
+                >I confirm that all the information provided is correct and I
+                understand that I cannot edit it after submission</label
+              >
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button class="btn btn-secondary" onclick="prevSection()">
+              Back to Edit
+            </button>
+            <button
+              class="btn btn-primary"
+              id="finalSubmitBtn"
+              disabled
+              onclick="submitForm()"
+            >
+              Submit Registration
+            </button>
+          </div>
+        </div>
+
+        <!-- Success Screen -->
+        <div class="success-screen" id="successScreen">
+          <div class="success-icon">
+            <svg viewBox="0 0 52 52">
+              <polyline points="14 27 22 35 38 19" />
+            </svg>
+          </div>
+          <h2 class="success-title">Registration Submitted!</h2>
+          <p class="success-message" id="successMessage"></p>
+
+          <div class="registration-details" id="registrationDetails"></div>
+
+          <button
+            class="btn btn-primary"
+            style="margin-top: 24px"
+            onclick="resetForm()"
+          >
+            Register Another Child
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="JS/registration_js.js"></script>
+  </body>
+</html>
